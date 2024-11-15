@@ -9,7 +9,7 @@ import type {
 } from 'storefrontapi.generated';
 
 //Home components
-import {Banner, Brands, Promises} from '~/components';
+import {Banner} from '~/components';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -64,8 +64,7 @@ export default function Homepage() {
   return (
     <div>
       <Banner />
-      {/* <Brands />x
-      <Promises /> */}
+
       <FeaturedCollection collection={data.featuredCollection} />
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>

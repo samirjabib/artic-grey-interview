@@ -10,7 +10,7 @@ export const Banner: React.FC = () => {
         loop
         autoPlay
       />
-      <div className="absolute bottom-[64px] left-0 z-10  max-w-[840px] pl-10">
+      <div className="absolute bottom-[64px] left-0 z-10  max-w-[980px] pl-10">
         <h1 className="font-bold text-white text-7xl leading-[83px]">
           Great things never came from comfort zones.
         </h1>
