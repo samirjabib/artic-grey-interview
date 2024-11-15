@@ -66,7 +66,7 @@ export default function Homepage() {
       <Banner />
       {/* <Brands />x
       <Promises /> */}
-      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
+      <FeaturedCollection collection={data.featuredCollection} />
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
   );

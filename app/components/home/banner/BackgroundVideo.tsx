@@ -29,7 +29,7 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
     <div className={`relative ${className}`}>
       <video
         ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
         src={videoUrl}
         autoPlay={autoPlay}
         loop={loop}
@@ -44,7 +44,7 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
         <track kind="captions" />
       </video>
       <div
-        className="absolute inset-0 bg-black opacity-20"
+        className="absolute inset-0 bg-black opacity-30 z-0"
         aria-hidden="true"
       ></div>
     </div>

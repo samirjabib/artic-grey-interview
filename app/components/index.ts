@@ -1,7 +1,6 @@
 //Home components
-export * from './home/Brands';
-export * from './home/Promises';
-export * from './home/Banner';
+
+export * from './home/banner/Banner';
 
 //Layout components
 export * from './layout/header/Header';

@@ -49,36 +49,52 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
+    {
+      rel: '',
+      href: 'https://res.cloudinary.com/dsxn0nfhf/video/upload/v1731623398/artic-grey-video-test_eishcg.mp4',
+    },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
 
 export async function loader(args: LoaderFunctionArgs) {
-  // Start fetching non-critical data without blocking time to first byte
+  const nonce = crypto.getRandomValues(new Uint8Array(16)).toString(); // Genera el nonce
+
   const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
-
   const {storefront, env} = args.context;
 
-  return defer({
-    ...deferredData,
-    ...criticalData,
-    publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
-    shop: getShopAnalytics({
-      storefront,
-      publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
-    }),
-    consent: {
-      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
-      storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
-      withPrivacyBanner: false,
-      // localize the privacy banner
-      country: args.context.storefront.i18n.country,
-      language: args.context.storefront.i18n.language,
+  const csp = `
+    default-src 'self' https://cdn.shopify.com https://shopify.com http://localhost:* 'nonce-${nonce}';
+    media-src https://res.cloudinary.com;
+    script-src 'self' 'nonce-${nonce}';
+    style-src 'self' 'nonce-${nonce}';
+    img-src 'self' data: https://cdn.shopify.com https://res.cloudinary.com;
+  `;
+
+  const headers = new Headers();
+  headers.set('Content-Security-Policy', csp.replace(/\s{2,}/g, ' ').trim());
+
+  return defer(
+    {
+      ...deferredData,
+      ...criticalData,
+      nonce, // Pasa el nonce como parte de los datos
+      publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
+      shop: getShopAnalytics({
+        storefront,
+        publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
+      }),
+      consent: {
+        checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
+        storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
+        withPrivacyBanner: false,
+        country: args.context.storefront.i18n.country,
+        language: args.context.storefront.i18n.language,
+      },
     },
-  });
+    {headers},
+  );
 }
 
 /**
