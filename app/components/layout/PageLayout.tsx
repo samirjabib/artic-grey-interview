@@ -13,7 +13,6 @@ import {
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {Header} from './header/Header';
-import {HeaderMenu} from './header/HeaderMenu';
 import {Aside} from '../../providers/Aside';
 
 interface PageLayoutProps {
@@ -164,12 +163,7 @@ function MobileMenuAside({
     header.menu &&
     header.shop.primaryDomain?.url && (
       <Aside type="mobile" heading="MENU">
-        <HeaderMenu
-          menu={header.menu}
-          viewport="mobile"
-          primaryDomainUrl={header.shop.primaryDomain.url}
-          publicStoreDomain={publicStoreDomain}
-        />
+        menu aside
       </Aside>
     )
   );

@@ -1,18 +1,7 @@
-import {Suspense} from 'react';
-
-import {Await, NavLink, useAsyncValue} from '@remix-run/react';
-
-import {
-  type CartViewPayload,
-  useAnalytics,
-  useOptimisticCart,
-} from '@shopify/hydrogen';
-
-import type {CartApiQueryFragment} from 'storefrontapi.generated';
-
-import {HeaderMenu} from './HeaderMenu';
 import type {HeaderProps} from './types';
-import {useAside} from '~/providers/Aside';
+
+import {MenuDesktop} from './MenuDesktop';
+import {MenuMobile} from './MenuMobile';
 
 export function Header({
   header,
@@ -20,91 +9,28 @@ export function Header({
   cart,
   publicStoreDomain,
 }: HeaderProps) {
-  const {shop, menu} = header;
+  const {menu, shop} = header;
+  const primaryDomainUrl = header.shop.primaryDomain.url;
+
+  const getHeaderMenu = () => {
+    // if (viewport === 'mobile') {
+    //   return <MenuMobile menu={menu} primaryDomainUrl={primaryDomainUrl} />;
+    // }
+    return (
+      <MenuDesktop
+        menu={menu}
+        primaryDomainUrl={primaryDomainUrl}
+        cart={cart}
+        isLoggedIn={isLoggedIn}
+        shopName={shop.name}
+        publicStoreDomain={publicStoreDomain}
+      />
+    );
+  };
+
   return (
-    <header className="absolute top-4 z-30 w-full px-[40px] py-5">
-      <div className="bg-white rounded-lg px-6 py-[23px] flex flex-row justify-between">
-        <NavLink prefetch="intent" to="/" end>
-          <strong className="font-bold text-xl leading-6">{shop.name}</strong>
-        </NavLink>
-        <HeaderMenu
-          menu={menu}
-          viewport="desktop"
-          primaryDomainUrl={header.shop.primaryDomain.url}
-          publicStoreDomain={publicStoreDomain}
-        />
-        <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-      </div>
+    <header className="absolute top-0 z-30 w-full px-10 py-5">
+      {getHeaderMenu()}
     </header>
   );
-}
-
-function HeaderCtas({
-  isLoggedIn,
-  cart,
-}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
-  return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account">
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <CartToggle cart={cart} />
-    </nav>
-  );
-}
-
-function HeaderMenuMobileToggle() {
-  const {open} = useAside();
-  return (
-    <button
-      className="header-menu-mobile-toggle reset"
-      onClick={() => open('mobile')}
-    >
-      <h3>☰</h3>
-    </button>
-  );
-}
-
-function CartBadge({count}: {count: number | null}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
-
-  return (
-    <a
-      href="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        } as CartViewPayload);
-      }}
-    >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
-  );
-}
-
-function CartToggle({cart}: Pick<HeaderProps, 'cart'>) {
-  return (
-    <Suspense fallback={<CartBadge count={null} />}>
-      <Await resolve={cart}>
-        <CartBanner />
-      </Await>
-    </Suspense>
-  );
-}
-
-function CartBanner() {
-  const originalCart = useAsyncValue() as CartApiQueryFragment | null;
-  const cart = useOptimisticCart(originalCart);
-  return <CartBadge count={cart?.totalQuantity ?? 0} />;
 }

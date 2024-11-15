@@ -35,8 +35,6 @@ export function Aside({
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
 
-  console.log(activeType, type);
-
   useEffect(() => {
     const abortController = new AbortController();
 
@@ -65,7 +63,7 @@ export function Aside({
       role="dialog"
     >
       <button
-        className="fixed inset-0 bg-black opacity-30 transition-opacity"
+        className="fixed inset-0 bg-black opacity-50 transition-opacity"
         onClick={close}
         aria-label="Close overlay"
       />
