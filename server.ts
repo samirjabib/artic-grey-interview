@@ -14,7 +14,7 @@ export default {
     env: Env,
     executionContext: ExecutionContext,
   ): Promise<Response> {
-    try {
+  try {
       const appLoadContext = await createAppLoadContext(
         request,
         env,
