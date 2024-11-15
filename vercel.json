@@ -1,8 +1,7 @@
 {
   "functions": {
     "api/index.js": {
-      "runtime": "edge",
-      "entrypoint": "dist/server/index.js"
+      "runtime": "edge"
     }
   }
 }
