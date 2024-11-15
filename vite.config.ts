@@ -13,7 +13,6 @@ export default defineConfig({
     hydrogen(),
     oxygen(),
     remix({
-      serverBuildFile: 'dist/server/index.js',
       presets: [hydrogen.preset(), vercelPreset()],
       future: {
         v3_fetcherPersist: true,
