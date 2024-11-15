@@ -3,10 +3,10 @@ import {FALLBACK_HEADER_MENU} from './constants';
 import type {MenuDesktopProps} from './types';
 import clsx from 'clsx';
 
-import {SearchToggle} from '../search/SearchToggle';
+import {SearchToggle} from '../../shared/search/SearchToggle';
 import {HeaderActions} from './HeaderActions';
 
-export const MenuDesktop = ({
+export const HeaderDesktop = ({
   menu,
   primaryDomainUrl,
   cart,
@@ -54,7 +54,6 @@ export const MenuDesktop = ({
           );
         })}
       </div>
-
       <HeaderActions isLoggedIn={isLoggedIn} cart={cart} />
     </nav>
   );

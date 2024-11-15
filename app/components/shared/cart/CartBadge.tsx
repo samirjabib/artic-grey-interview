@@ -3,24 +3,9 @@ import {useAnalytics} from '@shopify/hydrogen';
 import {useAside} from '~/providers/Aside';
 
 export function CartBadge({count}: {count: number | null}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
-
   return (
-    <a
-      href="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        } as CartViewPayload);
-      }}
-    >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
+    <div className="absolute top-[-4px] right-[-8px] h-full w-[1px] bg-black text-white flex items-center justify-center rounded-lg p-2">
+      <span className="text-[12px]">{count}</span>
+    </div>
   );
 }

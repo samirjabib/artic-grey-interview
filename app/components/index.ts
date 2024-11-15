@@ -5,4 +5,4 @@ export * from './home/Banner';
 
 //Layout components
 export * from './layout/header/Header';
-export * from './layout/PageLayout';
+export * from './layout/RootLayout';

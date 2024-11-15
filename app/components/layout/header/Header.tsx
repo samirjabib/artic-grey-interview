@@ -1,7 +1,7 @@
 import type {HeaderProps} from './types';
 
-import {MenuDesktop} from './MenuDesktop';
-import {MenuMobile} from './MenuMobile';
+import {HeaderDesktop} from './HeaderDesktop';
+import {HeaderMobile} from './HeaderMobile';
 
 export function Header({
   header,
@@ -17,7 +17,7 @@ export function Header({
     //   return <MenuMobile menu={menu} primaryDomainUrl={primaryDomainUrl} />;
     // }
     return (
-      <MenuDesktop
+      <HeaderDesktop
         menu={menu}
         primaryDomainUrl={primaryDomainUrl}
         cart={cart}

@@ -1,6 +1,6 @@
 import type {MenuMobileProps} from './types';
 
-export const MenuMobile = ({
+export const HeaderMobile = ({
   menu,
   primaryDomainUrl,
   publicStoreDomain,
