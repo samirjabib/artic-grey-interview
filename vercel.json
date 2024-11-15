@@ -1,17 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "public/**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {"src": "/build/(.*)", "dest": "/build/$1"},
-    {"src": "/(.*)", "dest": "server.js"}
-  ]
+  "env": {
+    "SESSION_SECRET": "foobar",
+    "PUBLIC_STORE_DOMAIN": "artic-grey-samir.myshopify.com"
+  }
 }
