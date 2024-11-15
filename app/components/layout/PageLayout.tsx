@@ -5,7 +5,6 @@ import type {
   FooterQuery,
   HeaderQuery,
 } from 'storefrontapi.generated';
-import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {CartMain} from '~/components/CartMain';
 import {
@@ -13,7 +12,9 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {Header, HeaderMenu} from './header/Header';
+import {Header} from './header/Header';
+import {HeaderMenu} from './header/HeaderMenu';
+import {Aside} from '../../providers/Aside';
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -34,9 +35,10 @@ export function PageLayout({
 }: PageLayoutProps) {
   return (
     <Aside.Provider>
-      {/* <CartAside cart={cart} /> */}
-      {/* <SearchAside /> */}
+      {/* <CartAside cart={cart} />
+       */}
       {/* <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} /> */}
+      <SearchAside />
       {header && (
         <Header
           header={header}

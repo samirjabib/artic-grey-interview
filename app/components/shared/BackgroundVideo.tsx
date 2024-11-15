@@ -34,19 +34,19 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
         autoPlay={autoPlay}
         loop={loop}
         muted={muted}
-        controls={true}
+        controls={controls}
         preload="auto"
         crossOrigin="anonymous"
-        // onError={(e) => {
-        //   (e.currentTarget as HTMLVideoElement).style.display = 'none';
-        // }}
+        onError={(e) => {
+          (e.currentTarget as HTMLVideoElement).style.display = 'none';
+        }}
       >
         <track kind="captions" />
       </video>
-      {/* <div
+      <div
         className="absolute inset-0 bg-black opacity-20"
         aria-hidden="true"
-      ></div> */}
+      ></div>
     </div>
   );
 };

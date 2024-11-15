@@ -8,20 +8,11 @@ import {
   useOptimisticCart,
 } from '@shopify/hydrogen';
 
-import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
+import type {CartApiQueryFragment} from 'storefrontapi.generated';
 
-import {useAside} from '~/components/Aside';
 import {HeaderMenu} from './HeaderMenu';
-import {activeLinkStyle} from './utils';
-
-interface HeaderProps {
-  header: HeaderQuery;
-  cart: Promise<CartApiQueryFragment | null>;
-  isLoggedIn: Promise<boolean>;
-  publicStoreDomain: string;
-}
-
-type Viewport = 'desktop' | 'mobile';
+import type {HeaderProps} from './types';
+import {useAside} from '~/providers/Aside';
 
 export function Header({
   header,
@@ -33,7 +24,7 @@ export function Header({
   return (
     <header className="absolute top-4 z-30 w-full px-[40px] py-5">
       <div className="bg-white rounded-lg px-6 py-[23px] flex flex-row justify-between">
-        <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+        <NavLink prefetch="intent" to="/" end>
           <strong className="font-bold text-xl leading-6">{shop.name}</strong>
         </NavLink>
         <HeaderMenu
@@ -55,14 +46,13 @@ function HeaderCtas({
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+      <NavLink prefetch="intent" to="/account">
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
           </Await>
         </Suspense>
       </NavLink>
-      <SearchToggle />
       <CartToggle cart={cart} />
     </nav>
   );
@@ -76,15 +66,6 @@ function HeaderMenuMobileToggle() {
       onClick={() => open('mobile')}
     >
       <h3>☰</h3>
-    </button>
-  );
-}
-
-function SearchToggle() {
-  const {open} = useAside();
-  return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
     </button>
   );
 }
