@@ -11,10 +11,9 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     hydrogen(),
-    vercelPreset(),
     oxygen(),
     remix({
-      presets: [hydrogen.preset()],
+      presets: [hydrogen.preset(), vercelPreset()],
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,

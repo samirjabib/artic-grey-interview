@@ -3,7 +3,7 @@
     "./**/*.d.ts",
     "./**/*.ts",
     "./**/*.tsx"
-  ],
+, "app/lib/session.js"  ],
   "compilerOptions": {
     "lib": [
       "DOM",
